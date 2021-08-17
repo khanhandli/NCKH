@@ -1,4 +1,4 @@
-CREATE DATABASE 
+CREATE DATABASE NCKH;
 
 CREATE TABLE NCKH(
 	OPNUMBER VARCHAR(100),
@@ -23,7 +23,7 @@ CREATE TABLE NCKH(
 	
 	
 	
-# fix mysql : ubuntu
+# fix mysql : ubuntu (không cần quan tâm)
 sudo mysql -u root
 use mysql;
 [mysql] update user set plugin='' where User='root';
