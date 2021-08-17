@@ -1,3 +1,5 @@
+file chính xây dựng các module Sales.pync
+
 Hướng dẫn chạy chương trình: 
 
 1: chạy câu lệnh tạo bảng sql trong file CSDLNCKH
