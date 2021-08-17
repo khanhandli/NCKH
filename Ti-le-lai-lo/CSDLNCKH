@@ -18,3 +18,11 @@ CREATE TABLE NCKH(
 	RDVTTD VARCHAR(100),
 	RDQTTD VARCHAR(100),
 	DSC VARCHAR(100));
+	
+	
+	
+# fix mysql : ubuntu
+sudo mysql -u root
+use mysql;
+[mysql] update user set plugin='' where User='root';
+[mysql] flush privileges;

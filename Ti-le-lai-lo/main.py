@@ -22,7 +22,7 @@ from sklearn.linear_model import Perceptron
 from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-
+thongbao =''
 tilewin = ''
 tileloss = ''
 timechay = ''
@@ -40,7 +40,7 @@ def update(rows):
 
 def search():
 	q2 = q.get()
-	query = "SELECT * FROM customers WHERE first_name LIKE '%" + q2 +"%' OR OPRESULT LIKE '%" + q2+"%'"
+	query = "SELECT * FROM NCKH WHERE OPRESULT LIKE '%" + q2 +"%' OR OPRESULT LIKE '%" + q2+"%'"
 	cursor.execute(query)
 	rows = cursor.fetchall()
 	update(rows)
@@ -73,6 +73,7 @@ def getrow(event):
 	t19.set(item['values'][15])
 	t20.set(item['values'][16])
 	t21.set(item['values'][17])
+	t22.set(item['values'][18])
 	
 
 def update_customer():
@@ -94,10 +95,11 @@ def update_customer():
 	g16 = t19.get()
 	g17 = t20.get()
 	g18 = t21.get()
+	g19 = t22.get()
 	
-	if messagebox.askyesno("xac nhan?", "ban chac chu"):
-		query = "UPDATE NCKH SET SSUP VARCHAR(100),SUPGROUP,REGION,RTM,EDISS,OPRESULT,SSCC,TDITC,TDITQ,OAUSD,CZBR,CZBEC,RFCPTY,COMTYPE,RDITTD,RDVTTD,RDQTTD,DSC WHERE OPNUMBER = %s"
-		cursor.execute(query,(g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16,g17,g18,g1))
+	if messagebox.askyesno("Cap Nhat?", "Ban co chac khong?"):
+		query = "UPDATE NCKH SET SSUP = %s,SUPGROUP =%s,REGION=%s,RTM=%s,EDISS=%s,OPRESULT=%s,SSCC=%s,TDITC=%s,TDITQ=%s,OAUSD=%s,CZBR=%s,CZBEC=%s,RFCPTY=%s,COMTYPE=%s,RDITTD=%s,RDVTTD=%s,RDQTTD=%s,DSC = %s WHERE OPNUMBER = %s"
+		cursor.execute(query,(g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16,g17,g18,g19,g1))
 		mydb.commit()
 		clear()
 	else:
@@ -105,32 +107,33 @@ def update_customer():
 
 
 def add_new():
-	g1 = t1.get()
-	g2 = t2.get()
-	g3 = t3.get()
-	g4 = t4.get()
-	g5 = t8.get()
-	g6 = t9.get()
-	g7 = t10.get()
-	g8 = t11.get()
-	g9 = t12.get()
-	g10 = t13.get()
-	g11 = t14.get()
-	g12 = t15.get()
-	g13 = t16.get()
-	g14 = t17.get()
-	g15 = t18.get()
-	g16 = t19.get()
-	g17 = t20.get()
-	g18 = t21.get()
-	query = "INSERT INTO NCKH VALUES(%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s)"
-	cursor.execute(query, (g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16,g17,g18))
+	gt1 = t1.get()
+	gt2 = t2.get()
+	gt3 = t3.get()
+	gt4 = t4.get()
+	gt5 = t8.get()
+	gt6 = t9.get()
+	gt7 = t10.get()
+	gt8 = t11.get()
+	gt9 = t12.get()
+	gt10 = t13.get()
+	gt11 = t14.get()
+	gt12 = t15.get()
+	gt13 = t16.get()
+	gt14 = t17.get()
+	gt15 = t18.get()
+	gt16 = t19.get()
+	gt17 = t20.get()
+	gt18 = t21.get()
+	gt19 = t22.get()
+	query = "INSERT INTO NCKH VALUES(%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
+	cursor.execute(query, (gt1,gt2,gt3,gt4,gt5,gt6,gt7,gt8,gt9,gt10,gt11,gt12,gt13,gt14,gt15,gt16,gt17,gt18,gt19))
 	mydb.commit()
 	clear()
 def delete_customer():
 	customer_id = t1.get()
-	if messagebox.askyesno("xac nhan xoa?", "ban chac chu"):
-		query = "DELETE FROM NCKH WHERE id = " + customer_id
+	if messagebox.askyesno("Xoa", "Ban co chac khong?"):
+		query = "DELETE FROM NCKH WHERE OPNUMBER = " + customer_id
 		cursor.execute(query)
 		mydb.commit()
 		clear()
@@ -147,7 +150,7 @@ def export():
 		exp_writer = csv.writer(myfile, delimiter =',')
 		for i in mydata:
 			exp_writer.writerow(i)
-	messagebox.showinfo("Data Exported", "data : " + os.path.basename(fln)+"sucessfully.")
+	messagebox.showinfo("Data Exported", "csv : " + os.path.basename(fln)+" thanh cong.")
 
 def importcsv():
 	mydata.clear()
@@ -160,7 +163,34 @@ def importcsv():
 	return fln
 
 def savedb():
-	return True
+	if messagebox.askyesno("Save data", "Ban co muon luu data vao database:"):
+		for i in mydata:
+			gt1 = i[0]
+			gt2 = i[1]
+			gt3 = i[2]
+			gt4 = i[3]
+			gt5 = i[4]
+			gt6 = i[5]
+			gt7 = i[6]
+			gt8 = i[7]
+			gt9 = i[8]
+			gt10 = i[9]
+			gt11 = i[10]
+			gt12 = i[11]
+			gt13 = i[12]
+			gt14 = i[13]
+			gt15 = i[14]
+			gt16 = i[15]
+			gt17 = i[16]
+			gt18 = i[17]
+			gt19 = i[18]
+			query = "INSERT INTO NCKH VALUES(%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
+			cursor.execute(query, (gt1,gt2,gt3,gt4,gt5,gt6,gt7,gt8,gt9,gt10,gt11,gt12,gt13,gt14,gt15,gt16,gt17,gt18,gt19))
+		mydb.commit()
+		clear()
+		messagebox.showinfo("Data save","Luu thanh cong")
+	else:
+		return False
 
 def dudoan():
 	link = importcsv()
@@ -191,7 +221,7 @@ def dudoan():
 		#cat data de train va test 
 		data_train, data_test, target_train, target_test = train_test_split(data,target, test_size = 0.30, random_state = 10)
 		#random forest
-		#A floresta là một tập hợp các cây quyết định hầu hết thời gian được huấn luyện theo phương pháp "đóng túi". Ý tưởng chung của phương pháp này là sự kết hợp của các mô hình học tập sẽ làm tăng kết quả chung.
+		#as
 		start = time.time()
 		random_forest = RandomForestClassifier()
 		pred = random_forest.fit(data_train, target_train).predict(data_test)
@@ -253,11 +283,19 @@ def dudoan():
 
 		inference = random_forest.predict([new_data_instance])
 		if inference[0] == 0:
+			thongbao = "Nếu không thay đổi phương pháp kinh doanh, công ty có nguy cơ lỗ đến: ",  round(((round(loss, 2))-round(won, 2)),2), "%"
+			t23.set(thongbao)
 			tileloss = "Dự đoán: tỉ lệ lỗ: ",(round(loss, 2)),"%", "và tỉ lệ lãi: ",(round(won, 2)),"%"
 			t5.set(tileloss)
+			warning = "****Lưu ý: Tất cả số liệu do máy dự đoán có thể có sai số ****"
+			t24.set(warning)
 		elif inference[0] == 1:
 			tilewin = "Dự đoán: tỉ lệ lãi: ",(round(won, 2)),"%", "và tỉ lệ lỗ:" , (round(loss, 2)),"%"
 			t5.set(tilewin)
+			thongbao = "Tiếp tục kinh doanh như vậy, tỉ lệ lãi đang tăng: "
+			t23.set(thongbao)
+			warning = "****Lưu ý: Tất cả số liệu do máy dự đoán có thể có sai số ****"
+			t24.set(warning)
 		else:
     			print(inference)
 
@@ -271,7 +309,6 @@ t2 = StringVar()
 t3 = StringVar()
 t4 = StringVar()
 
-t5 = StringVar()
 t6 = StringVar()
 t7 = StringVar()
 
@@ -289,18 +326,21 @@ t18 = StringVar()
 t19 = StringVar()
 t20 = StringVar()
 t21 = StringVar()
-
+t22 = StringVar()
+t23 = StringVar()
+t5 = StringVar()
+t24 = StringVar()
 
 
 wrapper1 = LabelFrame(root, text ="Danh sách dữ liệu")
-wrapper2 = LabelFrame(root, text ="Tìm kiếm")
-wrapper3 = LabelFrame(root, text ="Thao tác dữ liệu")
+wrapper2 = LabelFrame(root, text ="Tim Kiem")
+wrapper3 = LabelFrame(root, text ="Chỉnh sửa dữ liệu")
 
 wrapper1.pack(fill="both", expand="yes", padx=20, pady=20)
 wrapper2.pack(fill="both", expand="yes", padx=20, pady=10)
 wrapper3.pack(fill="both", expand="yes", padx=20, pady=10)
 
-trv = ttk.Treeview(wrapper1, columns=(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18), show="headings", height="6")
+trv = ttk.Treeview(wrapper1, columns=(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19), show="headings", height="6")
 trv.pack()
 verscrlbar = ttk.Scrollbar(root, 
                            orient ="vertical", 
@@ -318,15 +358,16 @@ trv.heading(6, text="Elapsed Days In Sales Stage")
 trv.heading(7, text="Opportunity Result")
 trv.heading(8, text="Sales Stage Change Count")
 trv.heading(9, text="Total Days Identified Through Closing")
-trv.heading(10, text="Opportunity Amount USD")
-trv.heading(11, text="Client Size By Revenue")
-trv.heading(12, text="Client Size By Employee Count")
-trv.heading(13, text="Revenue From Client Past Two Years")
-trv.heading(14, text="Competitor Type")
-trv.heading(15, text="Ratio Days Identified To Total Days")
-trv.heading(16, text="Ratio Days Validated To Total Days")
-trv.heading(17, text="Ratio Days Qualified To Total Days")
-trv.heading(18, text="Deal Size Category")
+trv.heading(10, text="Total Days Identified Through Qualified")
+trv.heading(11, text="Opportunity Amount USD")
+trv.heading(12, text="Client Size By Revenue")
+trv.heading(13, text="Client Size By Employee Count")
+trv.heading(14, text="Revenue From Client Past Two Years")
+trv.heading(15, text="Competitor Type")
+trv.heading(16, text="Ratio Days Identified To Total Days")
+trv.heading(17, text="Ratio Days Validated To Total Days")
+trv.heading(18, text="Ratio Days Qualified To Total Days")
+trv.heading(19, text="Deal Size Category")
 
 trv.bind('<Double 1>', getrow)
 
@@ -339,14 +380,14 @@ impbtn.pack(side=tk.LEFT, padx=10, pady=10)
 savebtn = Button(wrapper1, text= "Lưu dữ liệu", command=savedb)
 savebtn.pack(side=tk.LEFT, padx=10, pady=10)
 
-dudoanbtn = Button(wrapper1, text= "Du Doan", command=dudoan)
+dudoanbtn = Button(wrapper1, text= "Dự đoán", command=dudoan)
 dudoanbtn.pack(side = tk.LEFT, padx=10, pady=10)
 
-exbtn = Button(wrapper1, text= "Thoát chương trình", command=lambda: exit())
+exbtn = Button(wrapper1, text= "Thoát", command=lambda: exit())
 exbtn.pack(side=tk.LEFT, padx=10, pady=10)
 
 
-query = "SELECT id, first_name, last_name, age from customers"
+query = "SELECT * from NCKH"
 cursor.execute(query)
 rows = cursor.fetchall()
 update(rows)
@@ -354,12 +395,16 @@ update(rows)
 
 
 #btn du doan 
-lbl5 = Label(wrapper1, textvariable=t5)
-lbl5.pack(side=tk.BOTTOM, padx=20, pady=10)
 lbl6 = Label(wrapper1, textvariable=t6)
 lbl6.pack(side=tk.BOTTOM, padx=20, pady=10)
 lbl7 = Label(wrapper1, textvariable=t7)
 lbl7.pack(side=tk.BOTTOM, padx=20, pady=10)
+lbl99 = Label(wrapper1, textvariable=t23)
+lbl99.pack(side=tk.BOTTOM, padx=20, pady=10)
+lbl5 = Label(wrapper1, textvariable=t5)
+lbl5.pack(side=tk.BOTTOM, padx=20, pady=10)
+lbl999 = Label(wrapper1, textvariable=t24)
+lbl999.pack(side=tk.BOTTOM, padx=20, pady=10)
 #ent5 = Entry(wrapper1, textvariable=t5)
 #ent5.pack(side=tk.LEFT,  padx =0, pady=50)
 
@@ -451,27 +496,32 @@ lbl15.grid(row=2, column=4, padx=5, pady=3)
 ent15 = Entry(wrapper3, textvariable=t18)
 ent15.grid(row=2, column=5, padx =5, pady=3)
 
-lbl16 = Label(wrapper3, text="Ration-D-Validate-to-total-day")
+lbl16 = Label(wrapper3, text="Ration-D-Indentify-to-total-day")
 lbl16.grid(row=3, column=4, padx=5, pady=3)
 ent16 = Entry(wrapper3, textvariable=t19)
 ent16.grid(row=3, column=5, padx =5, pady=3)
 
-lbl17 = Label(wrapper3, text="Ratio-D-Qualified-to-total-day")
+lbl17 = Label(wrapper3, text="Ration-D-Validate-to-total-day")
 lbl17.grid(row=4, column=4, padx=5, pady=3)
 ent17 = Entry(wrapper3, textvariable=t20)
 ent17.grid(row=4, column=5, padx =5, pady=3)
 
-lbl18 = Label(wrapper3, text="Deal Size Category")
+lbl18 = Label(wrapper3, text="Ratio-D-Qualified-to-total-day")
 lbl18.grid(row=5, column=4, padx=5, pady=3)
 ent18 = Entry(wrapper3, textvariable=t21)
 ent18.grid(row=5, column=5, padx =5, pady=3)
+
+lbl19 = Label(wrapper3, text="Deal Size Category")
+lbl19.grid(row=6, column=4, padx=5, pady=3)
+ent19 = Entry(wrapper3, textvariable=t22)
+ent19.grid(row=6, column=5, padx =5, pady=3)
 
 
 
 
 up_btn = Button(wrapper2, text="Cập nhật", command=update_customer)
 add_btn = Button(wrapper2, text="Thêm mới", command=add_new)
-delete_btn = Button(wrapper2, text="Xóa", command=delete_customer)
+delete_btn = Button(wrapper2, text="Xóa bỏ", command=delete_customer)
 
 add_btn.pack(side=tk.RIGHT, padx=5, pady=3)
 up_btn.pack(side=tk.RIGHT, padx=5, pady=3)
@@ -479,7 +529,7 @@ delete_btn.pack(side=tk.RIGHT,padx=5, pady=3)
 
 
 
-root.title("Du Doan Ti Le Lai Lo")
+root.title("Dự đoán tỉ lệ lãi lỗ")
 root.geometry("1240x700")
 root.mainloop()
 
