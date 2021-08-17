@@ -1,4 +1,6 @@
-file chính xây dựng các module Sales.pync
+file chính xây dựng các module Sales.ipynb
+
+dữ liệu bán hàng : dulieu.csv
 
 Hướng dẫn chạy chương trình: 
 
